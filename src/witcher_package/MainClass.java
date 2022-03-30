@@ -1,4 +1,7 @@
 package witcher_package;
+import com.mysql.cj.protocol.Resultset;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.sql.*;
 import java.sql.SQLException;
 /**
@@ -34,6 +37,26 @@ public class MainClass {
             System.err.println("Error en el programa (ClassNotFoundException).");
         } catch (SQLException ex) {
             System.err.println("Error en el programa (SQLException).");
+        }
+        
+        // Escribir en fichero datos de la tabla 'decks'
+        try{
+            Connection conn = basedatos.conectar();
+            Statement stat = null;
+            ResultSet rs = null;
+            stat = conn.createStatement();
+            rs = stat.executeQuery("SELECT * from decks");
+            FileWriter fw = new FileWriter("D:\\fichero.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            String line = "";
+            while(rs.next()){
+                line = rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3);
+                bw.write(line);
+                bw.newLine();
+            }
+            bw.close();
+        } catch(Exception ex) {
+            ex.printStackTrace();
         }
     }
     
