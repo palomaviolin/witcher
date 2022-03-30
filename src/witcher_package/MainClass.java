@@ -58,6 +58,29 @@ public class MainClass {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
+        
+        // Escribir en fichero datos de la tabla 'cards', excepto imágenes
+        try{
+            Connection conn = basedatos.conectar();
+            Statement stat = null;
+            ResultSet rs = null;
+            stat = conn.createStatement();
+            rs = stat.executeQuery("SELECT * from cards");
+            FileWriter fw = new FileWriter("D:\\fichero3.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            String line = "";
+            bw.write("cod_card, name, type, strength, cod_deck \n \n");
+            while(rs.next()){
+                line = rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.getInt(4)+"\t"+rs.getInt(5);
+                bw.write(line);
+                bw.newLine();
+            }
+            bw.close();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        
     }
     
 }
