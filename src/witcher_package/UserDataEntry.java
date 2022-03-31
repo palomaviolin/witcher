@@ -3,20 +3,12 @@ import java.util.Scanner;
 
 public class UserDataEntry {
     
-    // Método para pedir al usuario que introduzca el tipo de motor.
-    public int pedirTipoBaraja(){
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Introduzca tipo de baraja: ");
-        int baraja = Integer.parseInt(teclado.nextLine());
-        return baraja;
+    // Method to ask the user to enter the type of deck of which he wants to see its data.
+    public int askForDeckType(){
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Enter the 'cod_deck' of the type of deck you want to see its data: ");
+        int deck = Integer.parseInt(keyboard.nextLine());
+        return deck;
     }
-    
-    // Método para pedir al usuario que introduzca el año de lanzamiento.
-//    public String pedirAnioLanzamiento(){
-//        Scanner teclado = new Scanner(System.in);
-//        System.out.println("Introduzca año de lanzamiento: ");
-//        String anio = teclado.nextLine();
-//        return anio;
-//    }
     
 }
