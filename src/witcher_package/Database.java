@@ -2,12 +2,12 @@ package witcher_package;
 import java.sql.*;
 
 public class Database {
-    Connection conectar = null;
+    Connection connect = null;
     
     // Method to establish the connection with the database.
-    public Connection conectar() throws ClassNotFoundException, SQLException{
+    public Connection connect() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conectar = DriverManager.getConnection("jdbc:mysql://localhost:3306/gwent","root","");
-        return conectar;
+        connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/gwent","root","");
+        return connect;
     }
 }
