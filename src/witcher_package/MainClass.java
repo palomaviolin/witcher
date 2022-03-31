@@ -1,9 +1,16 @@
 package witcher_package;
 import com.mysql.cj.protocol.Resultset;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 /**
  * Gwent Database.
  * @author Paloma Ania
@@ -46,11 +53,11 @@ public class MainClass {
             ResultSet rs = null;
             stat = conn.createStatement();
             rs = stat.executeQuery("SELECT * from decks");
-            FileWriter fw = new FileWriter("D:\\fichero.txt");
+            FileWriter fw = new FileWriter("D:\\fichero5.csv");
             BufferedWriter bw = new BufferedWriter(fw);
             String line = "";
             while(rs.next()){
-                line = rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3);
+                line = rs.getInt(1)+";"+rs.getString(2)+";"+rs.getString(3);
                 bw.write(line);
                 bw.newLine();
             }
@@ -78,6 +85,33 @@ public class MainClass {
             bw.close();
         } catch(Exception ex) {
             ex.printStackTrace();
+        }
+
+        // Escribir en base de datos, datos desde un fichero.
+        try{
+            Connection conn = basedatos.conectar();
+            Statement stat = conn.createStatement();
+            FileInputStream fstream = new FileInputStream("D:\\nuevas-cartas.txt");
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String[] codDeck = new String[2];
+            String[] name = new String[2];
+            String[] skill = new String[2];
+            
+            while(br.readLine() != null){
+                for(int i=0; i<codDeck.length; i++){
+                    codDeck[i] = br.readLine();
+                    name[i] = br.readLine();
+                    skill[i] = br.readLine();
+                    System.out.println(codDeck[i] + "" + name[i] + "" + skill[i]);
+                    System.out.println(Arrays.toString(codDeck));
+                    System.out.println(Arrays.toString(name));
+                    System.out.println(Arrays.toString(skill));
+                    int k = stat.executeUpdate("INSERT INTO decks (cod_deck,name,skill) VALUES ('"+codDeck[i]+"','"+name[i]+"','"+skill[i]+"')");
+                }
+            }
+        } catch(Exception ex){
+         System.err.println("Se ha producido un error al pasar los datos del fichero a la base de datos.");
         }
         
         
