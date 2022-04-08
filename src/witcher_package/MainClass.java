@@ -19,14 +19,14 @@ public class MainClass {
     public static void main(String[] args) {
         
         // Call methods of the class 'UserDataEntry' in order to ask for the cod_deck to the user.
-        UserDataEntry datosEntrada = new UserDataEntry();
-        int deck = datosEntrada.askForDeckType(); 
+        UserDataEntry dataEntry = new UserDataEntry();
+        int deck = dataEntry.askForDeckType(); 
         System.out.println("List of cards contained in the chosen deck: " + deck);
         
         // Call method of the class Database to establish the connection and obtain the requested data.
-        Database basedatos = new Database();
+        Database database = new Database();
         try {
-            Connection conn = basedatos.connect();
+            Connection conn = database.connect();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM cards WHERE cod_deck='"+deck+"'");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -45,7 +45,7 @@ public class MainClass {
         
         // Write the data from database (table 'decks') to a file.
         try{
-            Connection conn = basedatos.connect();
+            Connection conn = database.connect();
             Statement stat = null;
             ResultSet rs = null;
             stat = conn.createStatement();
@@ -65,7 +65,7 @@ public class MainClass {
         
         // Write the data from database (table 'cards') to a file (except images).
         try{
-            Connection conn = basedatos.connect();
+            Connection conn = database.connect();
             Statement stat = null;
             ResultSet rs = null;
             stat = conn.createStatement();
@@ -86,7 +86,7 @@ public class MainClass {
         
         // Write the data to the database from a file.
         try{
-            Connection conn = basedatos.connect();
+            Connection conn = database.connect();
             Statement stat = conn.createStatement();
             FileInputStream fstream = new FileInputStream("D:\\new-decks.txt");
             DataInputStream in = new DataInputStream(fstream);
