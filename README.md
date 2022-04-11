@@ -2,7 +2,7 @@
 
 > _All intellectual property rights (original idea, names and images for the database) are reserved and belongs to CD Projekt RED._
 
-> _I thank them for being able to use the data from their videogame to create my database exercise._  
+> _I thank them for being able to use the data from their card game to create my database exercise._  
 
 ***
 
